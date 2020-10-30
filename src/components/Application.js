@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import axios from "axios"
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay
+} from "../helpers/selectors";
+import axios from "axios";
+
+
 
 const appointments = [
   {
@@ -51,19 +58,67 @@ const appointments = [
   }
 ];
 
-const [days, setDays] = useState([]);
-
-useEffect(() => {
-  const url = 'https://itunes.apple.com/search?term=beyonce&country=CA&media=music&entity=album&attribute=artistTerm';
-  axios.get(url).then(response => {
-    console.log(response);
-  });
-}, [])
-
-
+const days = [
+  {
+    id: 1,
+    name: "Monday",
+    spots: 2,
+  },
+  {
+    id: 2,
+    name: "Tuesday",
+    spots: 5,
+  },
+  {
+    id: 3,
+    name: "Wednesday",
+    spots: 0,
+  },
+];
 
 
 export default function Application(props) {
+
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {},
+    interviewers: {},
+  });
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
+
+  useEffect(() => {
+    // axios.get("/api/days").then((response) => {
+    //   setDays(response.data);
+    // });
+    Promise.all([
+      axios.get("api/days"),
+      axios.get("api/appointments"),
+      axios.get("api/interviewers"),
+    ]).then((all) => {
+      setState((prev) => ({
+        ...prev,
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data,
+      }));
+    });
+  }, []);
+
   const [day, setDay] = useState("Monday");
   return (
     <main className="layout">
@@ -87,7 +142,7 @@ export default function Application(props) {
 />
       </section>
       <section className="schedule">
-      
+        {schedule}
       </section>
     </main>
   );
