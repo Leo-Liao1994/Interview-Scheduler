@@ -15,18 +15,18 @@ export function getInterview(state, interview) {
   if (!interview) {
     return null;
   }
-  const interviewObject = {};
+  const interviewObj = {};
   for (let interviewer in state.interviewers) {
-    interviewObject.student = interview.student;
+    interviewObj.student = interview.student;
     if (interview.interviewer === state.interviewers[interviewer].id) {
-      interviewObject.interviewer = {
+      interviewObj.interviewer = {
         id: state.interviewers[interviewer].id,
         name: state.interviewers[interviewer].name,
         avatar: state.interviewers[interviewer].avatar
       };
     }
   }
-  return interviewObject;
+  return interviewObj;
 }
 
 
