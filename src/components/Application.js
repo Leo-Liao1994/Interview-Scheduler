@@ -13,7 +13,7 @@ import axios from "axios";
 
 
 export default function Application(props) {
-  const [days, setDay] = useState("Monday");
+  // const [days, setDay] = useState("Monday");
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -22,10 +22,10 @@ export default function Application(props) {
   });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-    const interviewers = getInterviewersForDay(state, state.day);
     return (
       <Appointment
       key={appointment.id}
@@ -33,13 +33,12 @@ export default function Application(props) {
       time={appointment.time}
       interview={interview}
       interviewers={interviewers}
-      
+
       />
     );
   });
 
-
-  
+  const setDay = (day) => setState({ ...state, day });
   useEffect(() => {
     Promise.all([
       axios.get("api/days"),
