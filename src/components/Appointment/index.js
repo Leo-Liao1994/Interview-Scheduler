@@ -8,7 +8,6 @@ import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
 import "components/Appointment/style.scss";
 import useVisualMode from "hooks/useVisualMode";
-import useApplicationData from "hooks/useApplicationData";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -89,8 +88,9 @@ export default function Appointment(props) {
       {mode === DELETING && <Status message="Deleting..." />}
       {mode === CONFIRM && (
         <Confirm
-          onDelete={deleteInterview}
+          onConfirm={deleteInterview}
           onCancel={back}
+          onC
           message={"Are you sure you want to delete?"}
         />
       )}
