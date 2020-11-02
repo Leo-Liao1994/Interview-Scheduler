@@ -1,26 +1,24 @@
-
 import React from "react";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
+import Confirm from "components/Appointment/Confirm";
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
-import Confirm from "components/Appointment/Confirm";
 import Error from "components/Appointment/Error";
-import useVisualMode from "hooks/useVisualMode";
 import "components/Appointment/style.scss";
+import useVisualMode from "hooks/useVisualMode";
+import useApplicationData from "hooks/useApplicationData";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-const SAVING = "SAVING";
-const DELETING = "DELETING";
-const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const CONFIRM = "CONFIRM";
+const DELETING = "DELETING";
+const SAVING = "SAVING";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
-
-
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -93,7 +91,7 @@ export default function Appointment(props) {
         <Confirm
           onDelete={deleteInterview}
           onCancel={back}
-          message={"Are you sure you would like to delete?"}
+          message={"Are you sure you want to delete?"}
         />
       )}
       {mode === ERROR_DELETE && (
