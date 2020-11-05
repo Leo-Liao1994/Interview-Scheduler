@@ -21,3 +21,9 @@ npm test
 ```sh
 npm run storybook
 ```
+## Screenshots of the Project 
+
+!["screenshot description"](https://github.com/Leeeeeeeeeeeeeo/Interview-Scheduler/blob/master/docs/book_interview.png)
+!["screenshot description"](https://github.com/Leeeeeeeeeeeeeo/Interview-Scheduler/blob/master/docs/confirm_info.png)
+!["screenshot description"](https://github.com/Leeeeeeeeeeeeeo/Interview-Scheduler/blob/master/docs/confirm_delete.png)
+!["screenshot description"](https://github.com/Leeeeeeeeeeeeeo/Interview-Scheduler/blob/master/docs/after_delete.png)
